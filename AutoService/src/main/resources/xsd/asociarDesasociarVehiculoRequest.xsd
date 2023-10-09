@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns1="http://com.taller" targetNamespace="http://com.taller" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:element name="asociarDesasociarVehiculoRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="conductorId" type="xs:string"/>
+                <xs:element name="vehiculoId" type="xs:string"/>
+                <!-- Otros elementos relacionados con la asociación/desasociación de vehículos aquí -->
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
