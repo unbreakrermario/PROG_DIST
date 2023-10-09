@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.3.2 
 // Visite <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2023.09.24 a las 10:24:41 PM CST 
+// Generado el: 2023.10.09 a las 12:01:12 PM CST 
 //
 
 
@@ -37,11 +37,51 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AsociarDesasociarVehiculoRequest }
+     * 
+     */
+    public AsociarDesasociarVehiculoRequest createAsociarDesasociarVehiculoRequest() {
+        return new AsociarDesasociarVehiculoRequest();
+    }
+
+    /**
      * Create an instance of {@link Ack }
      * 
      */
     public Ack createAck() {
         return new Ack();
+    }
+
+    /**
+     * Create an instance of {@link Conductor }
+     * 
+     */
+    public Conductor createConductor() {
+        return new Conductor();
+    }
+
+    /**
+     * Create an instance of {@link ConsultarConductoresRequest }
+     * 
+     */
+    public ConsultarConductoresRequest createConsultarConductoresRequest() {
+        return new ConsultarConductoresRequest();
+    }
+
+    /**
+     * Create an instance of {@link ConsultarVehiculosAsociadosRequest }
+     * 
+     */
+    public ConsultarVehiculosAsociadosRequest createConsultarVehiculosAsociadosRequest() {
+        return new ConsultarVehiculosAsociadosRequest();
+    }
+
+    /**
+     * Create an instance of {@link EliminarConductorRequest }
+     * 
+     */
+    public EliminarConductorRequest createEliminarConductorRequest() {
+        return new EliminarConductorRequest();
     }
 
     /**
