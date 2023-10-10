@@ -14,26 +14,11 @@ import com.itq.autoService.dto.ConsultarVehiculosAsociadosRequest;
 import com.itq.autoService.dto.EliminarConductorRequest;
 
 @Component
-public class AutoService {//esto es una prueba
+public class AutoService {
     private List<Auto> autos = new ArrayList<>();
     private List<Conductor> conductores = new ArrayList<>();
 
-    /*public Ack insertCar(Auto auto) {
-        Ack ack = new Ack();
-        System.out.println("Color recibido: '" + auto.getColor() + "'");
 
-        if (auto.getColor().equals("rojo")) {
-            ack.setDescription("Bonito color");
-        } else if (auto.getColor().equals("")) {
-            ack.setDescription("¿Invisible?");
-        } else {
-            ack.setDescription("Bueno, por lo menos tiene color.");
-        }
-
-        ack.setCode(0);
-
-        return ack;
-    }*/
 
     public Ack createDriver(Conductor conductor) {
         Ack ack = new Ack();
@@ -72,15 +57,13 @@ public class AutoService {//esto es una prueba
     public Ack consultarVehiculosAsociados(ConsultarVehiculosAsociadosRequest request) {
         Ack response = new Ack();
 
-        // Obtener el conductorId desde la solicitud
         String conductorId = request.getConductorId();
 
         // Verificar si se proporcionó un conductorId válido
         if (conductorId == null || conductorId.isEmpty()) {
-            response.setCode(1); // Código de error para conductorId no válido
+            response.setCode(1); 
             response.setDescription("El conductorId no fue proporcionado o es inválido.");
         } else {
-            // Inicializar listas para almacenar los nombres de conductores y los IDs de vehículos
             List<String> nombresConductores = new ArrayList<>();
             List<String> idsVehiculos = new ArrayList<>();
 
@@ -94,10 +77,10 @@ public class AutoService {//esto es una prueba
 
             // Verificar si se encontraron vehículos asociados
             if (nombresConductores.isEmpty() || idsVehiculos.isEmpty()) {
-                response.setCode(1); // Código de error si no se encontraron vehículos asociados
+                response.setCode(1); 
                 response.setDescription("No se encontraron vehículos asociados para el conductor con ID: " + conductorId);
             } else {
-                response.setCode(0); // Código de éxito
+                response.setCode(0); 
                 response.setDescription("Consulta exitosa. Nombres de Conductores: " + nombresConductores.toString() + ". IDs de Vehículos: " + idsVehiculos.toString());
             }
         }
@@ -106,19 +89,13 @@ public class AutoService {//esto es una prueba
     }
 
 
-    // Método ficticio para obtener vehículos asociados a un conductor (debes implementarlo)
     private List<Auto> obtenerVehiculosAsociados(String conductorId) {
-        // Aquí deberías realizar la lógica para consultar los vehículos asociados al conductor
-        // Devuelve una lista de vehículos o una lista vacía si no se encontraron vehículos
-        // Esta es una implementación ficticia, debes adaptarla a tu sistema real
         List<Auto> vehiculosAsociados = new ArrayList<>();
-        // Agrega vehículos ficticios a la lista
         vehiculosAsociados.add(crearAuto("VW", "Golf", "Rojo", "AB123", conductorId));
         vehiculosAsociados.add(crearAuto("Ford", "Focus", "Azul", "CD456", conductorId));
         return vehiculosAsociados;
     }
 
-    // Método ficticio para crear un objeto Auto
     private Auto crearAuto(String marca, String modelo, String color, String idAuto, String idClient) {
         Auto auto = new Auto();
         auto.setMarca(marca);
@@ -132,24 +109,20 @@ public class AutoService {//esto es una prueba
     public Ack consultarConductores(ConsultarConductoresRequest request) {
         Ack response = new Ack();
 
-        // Obtener el conductorId desde la solicitud
         String conductorId = request.getConductorId();
 
         // Verificar si se proporcionó un conductorId válido
         if (conductorId == null || conductorId.isEmpty()) {
-            response.setCode(1); // Código de error para conductorId no válido
+            response.setCode(1); 
             response.setDescription("El conductorId no fue proporcionado o es inválido.");
         } else {
-            // Buscar el conductor en la lista de conductores por su conductorId
             Conductor conductorEncontrado = buscarConductorPorId(conductorId);
 
             if (conductorEncontrado != null) {
-                // Se encontró el conductor, puedes incluir información sobre el conductor en la descripción
-                response.setCode(0); // Código de éxito
+                response.setCode(0); 
                 response.setDescription("Consulta exitosa. Conductor: " + conductorEncontrado.getNombre());
             } else {
-                // No se encontró un conductor con el conductorId proporcionado
-                response.setCode(2); // Código de error para conductor no encontrado
+                response.setCode(2);
                 response.setDescription("No se encontró un conductor con el conductorId proporcionado.");
             }
         }
@@ -157,14 +130,13 @@ public class AutoService {//esto es una prueba
         return response;
     }
 
-    // Método ficticio para buscar un conductor por su ID
     private Conductor buscarConductorPorId(String conductorId) {
         for (Conductor conductor : conductores) {
             if (conductor.getConductorId().equals(conductorId)) {
                 return conductor;
             }
         }
-        return null; // Devuelve null si no se encontró ningún conductor con ese ID
+        return null;
     }
 
 
@@ -178,10 +150,8 @@ public class AutoService {//esto es una prueba
             return ack;
         }
 
-        // Obtener el conductorId de la solicitud
         String conductorId = request.getConductorId();
 
-        // Buscar el conductor en la lista de conductores por su conductorId
         Conductor conductorAEliminar = null;
         for (Conductor conductor : conductores) {
             if (conductor.getConductorId().equals(conductorId)) {
@@ -196,8 +166,7 @@ public class AutoService {//esto es una prueba
             ack.setCode(0);
             ack.setDescription("Conductor eliminado exitosamente");
         } else {
-            // No se encontró un conductor con el conductorId proporcionado
-            ack.setCode(2); // Código de error para conductor no encontrado
+            ack.setCode(2);
             ack.setDescription("No se encontró un conductor con el conductorId proporcionado.");
         }
 
@@ -207,23 +176,21 @@ public class AutoService {//esto es una prueba
     public Ack asociarDesasociarVehiculo(AsociarDesasociarVehiculoRequest request) {
         Ack response = new Ack();
 
-        // Obtener el ID del conductor y el ID del vehículo desde la solicitud
         String conductorId = request.getConductorId();
         String vehiculoId = request.getVehiculoId();
 
         // Verificar si se proporcionaron IDs válidos
         if (conductorId == null || conductorId.isEmpty() || vehiculoId == null || vehiculoId.isEmpty()) {
-            response.setCode(1); // Código de error para IDs no válidos
+            response.setCode(1); 
             response.setDescription("Los IDs del conductor y del vehículo son obligatorios.");
         } else {
-            // Realizar la lógica para desasociar el vehículo del conductor
             boolean operacionExitosa = desasociarVehiculoDeConductor(conductorId, vehiculoId);
 
             if (operacionExitosa) {
-                response.setCode(0); // Código de éxito
+                response.setCode(0); 
                 response.setDescription("Operación de desasociación exitosa. ID del vehículo desasociado: " + vehiculoId);
             } else {
-                response.setCode(2); // Código de error
+                response.setCode(2); 
                 response.setDescription("No se pudo realizar la operación de desasociación");
             }
         }
@@ -231,9 +198,7 @@ public class AutoService {//esto es una prueba
         return response;
     }
 
-    // Método ficticio para desasociar un vehículo de un conductor
     private boolean desasociarVehiculoDeConductor(String conductorId, String vehiculoId) {
-        // Buscar el vehículo en la lista de autos por su ID y conductor asociado
         Auto vehiculoADesasociar = null;
         for (Auto auto : autos) {
             if (auto.getIdAuto().equals(vehiculoId) && auto.getConductorId().equals(conductorId)) {
@@ -245,7 +210,7 @@ public class AutoService {//esto es una prueba
         if (vehiculoADesasociar != null) {
             // Eliminar el vehículo de la lista de autos
             autos.remove(vehiculoADesasociar);
-            return true; // Operación exitosa
+            return true; 
         }
 
         return false; // No se encontró el vehículo para desasociar
