@@ -118,7 +118,7 @@ public class AutoService {
         auto.setModelo(modelo);
         auto.setColor(color);
         auto.setIdAuto(idAuto);
-        auto.setIdClient(idClient);
+        auto.setConductorId(idClient);
         return auto;
     }
 
@@ -199,14 +199,38 @@ public class AutoService {
 
     public Ack asociarDesasociarVehiculo(AsociarDesasociarVehiculoRequest request) {
         Ack response = new Ack();
-        
+
+        // Obtener el ID del conductor y el ID del vehículo desde la solicitud
+        String conductorId = request.getConductorId();
+        String vehiculoId = request.getVehiculoId();
+
+        // Verificar si se proporcionaron IDs válidos
+        if (conductorId == null || conductorId.isEmpty() || vehiculoId == null || vehiculoId.isEmpty()) {
+            response.setCode(1); // Código de error para IDs no válidos
+            response.setDescription("Los IDs del conductor y del vehículo son obligatorios.");
+        } else {
+            // Aquí deberías realizar la lógica para asociar o desasociar el vehículo del conductor
+            // Puedes usar los IDs obtenidos para realizar la operación deseada
+
+            // Verificar si la operación fue exitosa
+            boolean operacionExitosa = true; // Cambia esto según el resultado de tu lógica
+
+            if (operacionExitosa) {
+                response.setCode(0); // Código de éxito
+                response.setDescription("Operación de asociación/desasociación exitosa");
+            } else {
+                response.setCode(2); // Código de error
+                response.setDescription("No se pudo realizar la operación de asociación/desasociación");
+            }
+        }
+
         return response;
     }
     public Ack insertCar(Auto auto) {
         Ack ack = new Ack();
 
         // Verifica si ya existe un vehículo con el mismo ID y cliente
-        if (autoExiste(auto.getIdAuto(), auto.getIdClient())) {
+        if (autoExiste(auto.getIdAuto(), auto.getConductorId())) {
             ack.setCode(1);
             ack.setDescription("Ya existe un vehículo con el mismo ID y cliente.");
         } else {
@@ -216,7 +240,7 @@ public class AutoService {
             nuevoAuto.setColor(auto.getColor());
             nuevoAuto.setMarca(auto.getMarca());
             nuevoAuto.setIdAuto(auto.getIdAuto());
-            nuevoAuto.setIdClient(auto.getIdClient());
+            nuevoAuto.setConductorId(auto.getConductorId());
 
             // Agrega el vehículo a la lista de vehículos
             autos.add(nuevoAuto);
@@ -239,6 +263,6 @@ public class AutoService {
     private boolean autoExiste(String idAuto, String idClient) {
         // Verifica si ya existe un vehículo con el mismo ID y cliente en la lista
         return autos.stream()
-                .anyMatch(auto -> auto.getIdAuto().equals(idAuto) && auto.getIdClient().equals(idClient));
+                .anyMatch(auto -> auto.getIdAuto().equals(idAuto) && auto.getConductorId().equals(idClient));
     }
 }
