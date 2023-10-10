@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://com.taller" targetNamespace="http://com.taller">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://com.taller" elementFormDefault="qualified">
+			<!-- Importa los esquemas XSD necesarios -->
+			<xs:include schemaLocation="commons.xsd"/>
+			<xs:include schemaLocation="taller.xsd"/>
+			<xs:include schemaLocation="consultarVehiculosAsociadosRequest.xsd"/>
+			<xs:include schemaLocation="consultarConductoresRequest.xsd"/>
+			<xs:include schemaLocation="eliminarConductorRequest.xsd"/>
+			<xs:include schemaLocation="conductor.xsd"/>
+			<xs:include schemaLocation="asociarDesasociarVehiculoRequest.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="crearVehiculoRequest">
+		<wsdl:part name="parameter" element="tns:auto"/>
+	</wsdl:message>
+	<wsdl:message name="crearVehiculoResponse">
+		<wsdl:part name="parameter" element="tns:ack"/>
+	</wsdl:message>
+	<wsdl:message name="crearConductorRequest">
+		<wsdl:part name="parameter" element="tns:conductor"/>
+	</wsdl:message>
+	<wsdl:message name="crearConductorResponse">
+		<wsdl:part name="parameter" element="tns:ack"/>
+	</wsdl:message>
+	<wsdl:message name="consultarVehiculosAsociadosRequest">
+		<wsdl:part name="parameter" element="tns:consultarVehiculosAsociadosRequest"/>
+	</wsdl:message>
+	<wsdl:message name="consultarVehiculosAsociadosResponse">
+		<wsdl:part name="parameter" element="tns:ack"/>
+	</wsdl:message>
+	<wsdl:message name="consultarConductoresRequest">
+		<wsdl:part name="parameter" element="tns:consultarConductoresRequest"/>
+	</wsdl:message>
+	<wsdl:message name="consultarConductoresResponse">
+		<wsdl:part name="parameter" element="tns:ack"/>
+	</wsdl:message>
+	<wsdl:message name="eliminarConductorRequest">
+		<wsdl:part name="parameter" element="tns:eliminarConductorRequest"/>
+	</wsdl:message>
+	<wsdl:message name="eliminarConductorResponse">
+		<wsdl:part name="parameter" element="tns:ack"/>
+	</wsdl:message>
+	<wsdl:message name="asociarDesasociarVehiculoRequest">
+		<wsdl:part name="parameter" element="tns:asociarDesasociarVehiculoRequest"/>
+	</wsdl:message>
+	<wsdl:message name="asociarDesasociarVehiculoResponse">
+		<wsdl:part name="parameter" element="tns:ack"/>
+	</wsdl:message>
+	<wsdl:portType name="TallerPortType">
+		<!-- Operación: Crear Vehículo -->
+		<wsdl:operation name="crearVehiculo">
+			<wsdl:input message="tns:crearVehiculoRequest"/>
+			<wsdl:output message="tns:crearVehiculoResponse"/>
+		</wsdl:operation>
+		<!-- Operación: Crear Conductor -->
+		<wsdl:operation name="crearConductor">
+			<wsdl:input message="tns:crearConductorRequest"/>
+			<wsdl:output message="tns:crearConductorResponse"/>
+		</wsdl:operation>
+		<!-- Operación: Consultar Vehículos Asociados a un Conductor -->
+		<wsdl:operation name="consultarVehiculosAsociados">
+			<wsdl:input message="tns:consultarVehiculosAsociadosRequest"/>
+			<wsdl:output message="tns:consultarVehiculosAsociadosResponse"/>
+		</wsdl:operation>
+		<!-- Operación: Consultar Conductores por Criterios -->
+		<wsdl:operation name="consultarConductores">
+			<wsdl:input message="tns:consultarConductoresRequest"/>
+			<wsdl:output message="tns:consultarConductoresResponse"/>
+		</wsdl:operation>
+		<!-- Operación: Eliminar Conductor -->
+		<wsdl:operation name="eliminarConductor">
+			<wsdl:input message="tns:eliminarConductorRequest"/>
+			<wsdl:output message="tns:eliminarConductorResponse"/>
+		</wsdl:operation>
+		<!-- Operación: Asociar / Desasociar Vehículo a un Conductor -->
+		<wsdl:operation name="asociarDesasociarVehiculo">
+			<wsdl:input message="tns:asociarDesasociarVehiculoRequest"/>
+			<wsdl:output message="tns:asociarDesasociarVehiculoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="TallerBinding" type="tns:TallerPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<!-- Operación: Crear Vehículo -->
+		<wsdl:operation name="crearVehiculo">
+			<soap:operation soapAction="urn:crearVehiculo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- Operación: Crear Conductor -->
+		<wsdl:operation name="crearConductor">
+			<soap:operation soapAction="urn:crearConductor"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- Operación: Consultar Vehículos Asociados a un Conductor -->
+		<wsdl:operation name="consultarVehiculosAsociados">
+			<soap:operation soapAction="urn:consultarVehiculosAsociados"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- Operación: Consultar Conductores por Criterios -->
+		<wsdl:operation name="consultarConductores">
+			<soap:operation soapAction="urn:consultarConductores"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- Operación: Eliminar Conductor -->
+		<wsdl:operation name="eliminarConductor">
+			<soap:operation soapAction="urn:eliminarConductor"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- Operación: Asociar / Desasociar Vehículo a un Conductor -->
+		<wsdl:operation name="asociarDesasociarVehiculo">
+			<soap:operation soapAction="urn:asociarDesasociarVehiculo"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="TallerService">
+		<wsdl:port name="TallerPort" binding="tns:TallerBinding">
+			<soap:address location="No target address"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- Importación de esquemas XSD -->
+	<!-- Mensajes -->
+	<!-- Operación: Crear Vehículo -->
+	<!-- Operación: Crear Conductor -->
+	<!-- Operación: Consultar Vehículos Asociados a un Conductor -->
+	<!-- Operación: Consultar Conductores por Criterios -->
+	<!-- Operación: Eliminar Conductor -->
+	<!-- Operación: Asociar / Desasociar Vehículo a un Conductor -->
+	<!-- PortTypes -->
+	<!-- Bindings -->
+	<!-- Servicio -->
+</wsdl:definitions>
