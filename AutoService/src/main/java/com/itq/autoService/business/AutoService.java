@@ -56,6 +56,15 @@ public class AutoService {
         ack.setCode(0);
         ack.setDescription("Conductor creado exitosamente");
 
+        // Verificar si el conductor se encuentra en la lista
+        boolean conductorCreado = conductores.contains(conductor);
+
+        if (conductorCreado) {
+            System.out.println("El conductor se creó y se encuentra en la lista de conductores.");
+        } else {
+            System.out.println("El conductor se creó pero no se encuentra en la lista de conductores.");
+        }
+
         return ack;
     }
 
@@ -115,16 +124,79 @@ public class AutoService {
 
     public Ack consultarConductores(ConsultarConductoresRequest request) {
         Ack response = new Ack();
-        
-        
-        return response;
-    }
-    public Ack eliminarConductor(EliminarConductorRequest request) {
-        Ack response = new Ack();
 
-        
+        // Obtener el conductorId desde la solicitud
+        String conductorId = request.getConductorId();
+
+        // Verificar si se proporcionó un conductorId válido
+        if (conductorId == null || conductorId.isEmpty()) {
+            response.setCode(1); // Código de error para conductorId no válido
+            response.setDescription("El conductorId no fue proporcionado o es inválido.");
+        } else {
+            // Buscar el conductor en la lista de conductores por su conductorId
+            Conductor conductorEncontrado = buscarConductorPorId(conductorId);
+
+            if (conductorEncontrado != null) {
+                // Se encontró el conductor, puedes incluir información sobre el conductor en la descripción
+                response.setCode(0); // Código de éxito
+                response.setDescription("Consulta exitosa. Conductor: " + conductorEncontrado.getNombre());
+            } else {
+                // No se encontró un conductor con el conductorId proporcionado
+                response.setCode(2); // Código de error para conductor no encontrado
+                response.setDescription("No se encontró un conductor con el conductorId proporcionado.");
+            }
+        }
+
         return response;
     }
+
+    // Método ficticio para buscar un conductor por su ID
+    private Conductor buscarConductorPorId(String conductorId) {
+        for (Conductor conductor : conductores) {
+            if (conductor.getConductorId().equals(conductorId)) {
+                return conductor;
+            }
+        }
+        return null; // Devuelve null si no se encontró ningún conductor con ese ID
+    }
+
+
+    
+    public Ack eliminarConductor(EliminarConductorRequest request) {
+        Ack ack = new Ack();
+
+        if (request == null || request.getConductorId() == null || request.getConductorId().isEmpty()) {
+            ack.setCode(1);
+            ack.setDescription("La solicitud es incompleta o el conductorId no fue proporcionado.");
+            return ack;
+        }
+
+        // Obtener el conductorId de la solicitud
+        String conductorId = request.getConductorId();
+
+        // Buscar el conductor en la lista de conductores por su conductorId
+        Conductor conductorAEliminar = null;
+        for (Conductor conductor : conductores) {
+            if (conductor.getConductorId().equals(conductorId)) {
+                conductorAEliminar = conductor;
+                break; // Encontramos el conductor, salimos del bucle
+            }
+        }
+
+        if (conductorAEliminar != null) {
+            // Eliminar el conductor encontrado de la lista de conductores
+            conductores.remove(conductorAEliminar);
+            ack.setCode(0);
+            ack.setDescription("Conductor eliminado exitosamente");
+        } else {
+            // No se encontró un conductor con el conductorId proporcionado
+            ack.setCode(2); // Código de error para conductor no encontrado
+            ack.setDescription("No se encontró un conductor con el conductorId proporcionado.");
+        }
+
+        return ack;
+    }
+
     public Ack asociarDesasociarVehiculo(AsociarDesasociarVehiculoRequest request) {
         Ack response = new Ack();
         
@@ -163,7 +235,7 @@ public class AutoService {
     public List<Conductor> getConductores() {
         return conductores;
     }
-
+    
     private boolean autoExiste(String idAuto, String idClient) {
         // Verifica si ya existe un vehículo con el mismo ID y cliente en la lista
         return autos.stream()

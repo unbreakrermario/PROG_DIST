@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.3.2 
 // Visite <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2023.09.24 a las 10:24:41 PM CST 
+// Generado el: 2023.10.09 a las 08:09:03 PM CST 
 //
 
 
@@ -100,8 +100,8 @@ public class Auto {
      * Define el valor de la propiedad modelo.
      * 
      */
-    public void setModelo(String modelo2) {
-        this.modelo = modelo2;
+    public void setModelo(String value) {
+        this.modelo = value;
     }
 
     /**

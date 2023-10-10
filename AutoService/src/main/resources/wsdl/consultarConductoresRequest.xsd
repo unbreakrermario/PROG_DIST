@@ -3,8 +3,7 @@
     <xs:element name="consultarConductoresRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="tipoLicencia" type="xs:string"/>
-                <xs:element name="nombre" type="xs:string"/>
+                <xs:element name="conductorId" type="xs:string"/>
                 <!-- Otros elementos relacionados con la consulta de conductores aquí -->
             </xs:sequence>
         </xs:complexType>
